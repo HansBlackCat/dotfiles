@@ -1,0 +1,24 @@
+###################################3
+# pacman packages
+###################################3
+
+zsh
+neovim
+fasd
+fd
+sd
+ripgrep
+lsd
+tokei
+fzf
+bat
+procs
+mosh
+aria2
+ufw
+Tor
+nyx
+qemu
+alacritty
+git
+git-lfs

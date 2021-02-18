@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Because Git submodule commands cannot operate without a work tree, they must
+# be run from within $HOME (assuming this is the root of your dotfiles)
+cd "$HOME"
+
+echo "Init submodules"
+yadm submodule update --recursive --init
+
+sytem_type=$(uname -s)
+
+if [ "$system_type" = "Linux" ]; then
+  echo "You're on Linux"
+
+  if command -v pacman > /dev/null 2>$1; then
+    sed '/^\s*$/d' pacman | sed '/^#/ d' > trimmed_pacman
+    sed '/^\s*$/d' AUR | sed '/^#/ d' > trimmed_AUR
+    
+  fi
+fi
