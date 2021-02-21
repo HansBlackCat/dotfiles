@@ -11,15 +11,19 @@
 #########################
 # Run services
 #########################
+# playerctl
 exec playerctld daemon
+exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) i3
+exec clight
 exec mako
 exec waybar
+
 
 #########################
 # Main definitions
 #########################
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
+# Logo key. Use Mod1 for Alt. Mod4 for dafault.
+set $mod Mod1
 
 # Your preferred terminal emulator
 set $term kitty

@@ -5,7 +5,11 @@
 # Provide all keyboards connected the following configuration
 input type:keyboard {
     xkb_layout us,us(dvorak),es,de
-    xkb_options grp:alt_shift_toggle
+    xkb_options grp:shift_caps_toggle
+}
+
+input 1:1:AT_Translated_Set_2_keyboard {
+	xkb_layout kr(kr104)
 }
 
 # Provide all touchpads and mice the same configuration
