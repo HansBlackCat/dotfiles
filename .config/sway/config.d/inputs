@@ -6,11 +6,21 @@
 input type:keyboard {
     xkb_layout us,us(dvorak),es,de
     xkb_options grp:shift_caps_toggle
+	repeat_delay 300
+	repeat_rate 45
 }
 
+# laptop specifi
 input 1:1:AT_Translated_Set_2_keyboard {
 	xkb_layout kr(kr104)
+	xkb_options ctrl:swapcaps
 }
+
+input 1278:33:HHKB-Hybrid_4_Keyboard {
+	xkb_layout us
+	xkb_model macintosh_hhk
+}
+
 
 # Provide all touchpads and mice the same configuration
 input type:pointer {
@@ -21,6 +31,7 @@ input type:pointer {
 input type:touchpad {
     tap enabled
     dwt enabled
+	pointer_accel 0.35
     natural_scroll enabled
     middle_emulation enabled
 }

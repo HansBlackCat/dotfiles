@@ -2,10 +2,9 @@
     "layer": "top",
     "position": "top",
     "modules-left": ["custom/media"],
-    "modules-right": ["custom/keyboard", "network", "battery", "pulseaudio", "clock", "custom/quit"],
-    "clock": {
-        "format": "{:%H:%M}",
-        "format-alt": "{:%a %b %d}",
+	"modules-right": ["custom/keyboard", "network", "battery", "pulseaudio", "clock", "custom/quit"],
+	"clock": {
+        "format": "{:%a %b %d %H:%M}",
         "tooltip": false
     },
     "battery": {

@@ -13,7 +13,10 @@
 #########################
 # playerctl
 exec playerctld daemon
-exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) i3
+exec dbus-launch --autolaunch=$(cat /var/lib/dbus/machine-id) sway
+
+exec kime-wayland &
+
 exec clight
 exec mako
 exec waybar
@@ -23,7 +26,7 @@ exec waybar
 # Main definitions
 #########################
 # Logo key. Use Mod1 for Alt. Mod4 for dafault.
-set $mod Mod1
+set $mod Mod4
 
 # Your preferred terminal emulator
 set $term kitty
@@ -35,7 +38,7 @@ set $menu rofi -terminal kitty -theme ~/.config/sway/rofi/Arc-Dark.rasi -show ru
 set $wallpaper ~/.config/sway/images/cat_snow_eyes_fluffy_95615_1920x1080.jpg
 
 # Default lockscreen background
-set $lockscreenbg ~/.config/sway/images/lockscreen_background.jpg
+set $lockscreenbg ~/.config/sway/images/wp8609041-cat-pc-wallpapers.jpg
 
 # Remove all borders from applications
 default_border none

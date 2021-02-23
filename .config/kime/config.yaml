@@ -1,8 +1,11 @@
 ---
 layout: dubeolsik
-global_hangul_state: false
+global_hangul_state: true
 hotkeys:
   Super-Space:
+    behavior: ToggleHangul
+    result: Consume
+  Shift-Space:
     behavior: ToggleHangul
     result: Consume
   Esc:
@@ -15,6 +18,12 @@ hotkeys:
     behavior: ToggleHangul
     result: Consume
   Hangul:
+    behavior: ToggleHangul
+    result: Consume
+  CapsLock:
+    behavior: ToggleHangul
+    result: Consume
+  CapLock:
     behavior: ToggleHangul
     result: Consume
 layout_addons:

@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =9
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/hansblackcat/.config/Code'
+let g:netrw_dirhist_0='/home/hansblackcat/.oh-my-zsh'
 let g:netrw_dirhist_9='/home/hansblackcat/.config/sway/config.d'
 let g:netrw_dirhist_8='/home/hansblackcat/.config/kime'
 let g:netrw_dirhist_7='/home/hansblackcat/.config/sway/config.d/custom'
@@ -8,4 +10,3 @@ let g:netrw_dirhist_5='/home/hansblackcat/.custom_managed_config/backup/sway_exa
 let g:netrw_dirhist_4='/home/hansblackcat/.config/sway/scripts'
 let g:netrw_dirhist_3='/home/hansblackcat/.custom_managed_config/backup/sway'
 let g:netrw_dirhist_2='/home/hansblackcat/.config/sway/config.d'
-let g:netrw_dirhist_1='/home/hansblackcat/.config'

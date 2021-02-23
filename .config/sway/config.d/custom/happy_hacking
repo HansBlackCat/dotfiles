@@ -1,0 +1,6 @@
+# SwayWM input configuration for the HHKB
+# Author: HansBlackCat <hansblackcat@github.com>
+
+input 1278:33:HHKB-Hybrid_4_Keyboard {
+	xkb_model macintosh_hhk	
+}
