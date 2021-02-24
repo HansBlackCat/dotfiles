@@ -20,12 +20,6 @@ hotkeys:
   Hangul:
     behavior: ToggleHangul
     result: Consume
-  CapsLock:
-    behavior: ToggleHangul
-    result: Consume
-  CapLock:
-    behavior: ToggleHangul
-    result: Consume
 layout_addons:
   all:
     - ComposeChoseongSsang

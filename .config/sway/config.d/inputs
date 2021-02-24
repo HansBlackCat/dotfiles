@@ -19,12 +19,15 @@ input 1:1:AT_Translated_Set_2_keyboard {
 input 1278:33:HHKB-Hybrid_4_Keyboard {
 	xkb_layout us
 	xkb_model macintosh_hhk
+	xkb_options korean:ralt_hangul
 }
 
 
 # Provide all touchpads and mice the same configuration
 input type:pointer {
-    natural_scroll enabled
+	# Pointer == Mouse
+	# natural_scroll enabled
+	pointer_accel 0.4
     middle_emulation enabled
 }
 
