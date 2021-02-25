@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if find ~/.config/nvim/latex/.i.vim > /dev/null 2>&1; then
+	rm ~/.config/nvim/latex/.i.vim
+fi
+
+cp ~/.config/nvim/init.vim ~/.config/nvim/latex/.i.vim
+cat ~/.config/nvim/latex/append.vim >> ~/.config/nvim/latex/.i.vim
+
+nvim -u ~/.config/nvim/latex/.i.vim $1

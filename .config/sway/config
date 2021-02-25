@@ -33,10 +33,11 @@ set $term kitty
 
 # Your preferred application launcher
 #set $menu wofi --show run -Iib -l 5 -W 500 -x -10 -y -51
-#set $menu rofi -terminal kitty -theme ~/.config/sway/rofi/Arc-Dark.rasi -show run
-set $menu GDK_BACKEND=wayland ulauncher --hide-window 
+set $menu rofi -terminal kitty -theme ~/.config/sway/rofi/Arc-Dark.rasi -show run
+#set $menu GDK_BACKEND=wayland ulauncher --hide-window 
+#for_window [app_id="ulauncher"] floating enable, border none 
 
-for_window [app_id="ulauncher"] floating enable, border none 
+
 # Default wallpaper
 set $wallpaper ~/.config/sway/images/cat_snow_eyes_fluffy_95615_1920x1080.jpg
 

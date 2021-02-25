@@ -76,14 +76,15 @@
             "", // Icon: battery-quarter
             ""  // Icon: battery-empty
         ],
-        "tooltip": false
+        "tooltip": true
     },
 
     "clock#time": {
         "interval": 10,
-        "format": "{:%H:%M}",
+		"format": "{:%H:%M}",
         "tooltip": false
-    },
+		//"tooltip-format": "{$HOME/.config/waybar/get_kbdlayout.sh}"
+	},
 
     "clock#date": {
         "interval": 20,
@@ -209,6 +210,7 @@
     "custom/arrow1": {
         "format": "",
         "tooltip": false
+
     },
 
     "custom/arrow2": {
