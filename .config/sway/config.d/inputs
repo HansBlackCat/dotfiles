@@ -17,18 +17,32 @@ input 1:1:AT_Translated_Set_2_keyboard {
 }
 
 input 1278:33:HHKB-Hybrid_4_Keyboard {
-	xkb_layout us(colemak)
+	## Two below: BigBag 
+	#xkb_layout us(cmk_ed_dh)
+	#xkb_model pc104aw-zqu
+	xkb_layout us(colemak_dh)
 	xkb_model macintosh_hhk
+
 	xkb_options korean:ralt_hangul
 }
 
 
 # Provide all touchpads and mice the same configuration
 input type:pointer {
-	# Pointer == Mouse
-	# natural_scroll enabled
+	## Pointer == Mouse
+	natural_scroll enabled
 	pointer_accel 0.4
     middle_emulation enabled
+}
+
+input 6392:3993:USB_OPTICAL_MOUSE {
+	## Pointer == Mouse
+	natural_scroll disabled
+	# scroll_button disable
+	pointer_accel 0.6
+	scroll_factor 2
+    middle_emulation enabled
+	
 }
 
 input type:touchpad {
