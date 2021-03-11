@@ -129,12 +129,12 @@ if command -v nvim > /dev/null 2>&1; then
 	alias vim="nvim"
 	alias vimdiff="nvim -d"
 	export EDITOR=/usr/bin/nvim
-	
+
 fi
 
 # Arch specific
 if [[ $(uname) == *"Linux"* ]]; then
-	
+
 	# kime settings
 	if command -v kime-indicator > /dev/null 2>&1; then
 		export GTK_IM_MODULE=kime
@@ -155,7 +155,46 @@ if [[ $(uname) == *"Linux"* ]]; then
 
 fi
 
+# Multi-Core Compile Option
 export MAKEFLAGS="-j$(nproc)"
+
+# Aliasing
+alias cat="bat"
+
+# File Trasnfer
+# trasnfer.sh
+transfer(){ 
+	if [ $# -eq 0 ]; then 
+		echo "No arguments specified.\nUsage:\n  transfer <file|directory>\n  ... | transfer <file_name>" >&2
+		return 1
+	fi
+
+	if tty -s; then
+		file="$1"
+		file_name=$(basename "$file")
+
+		if [ ! -e "$file" ]; then 
+			echo "$file: No such file or directory">&2
+			return 1
+		fi
+
+		if [ -d "$file" ]; then 
+			file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;
+		else 
+			cat "$file"|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;
+		fi
+
+	else file_name=$1;curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null
+	fi;
+}
+
+## Applications EnvVars
+# DoomEmacs
+export DOOMDIR="~/.config/doom"
+# Python IncludePath Problem
+export CPATH=/usr/include/python3.9:$CPATH
+
+
 #####################################################################
 # Custume Settings End                                               
 #####################################################################
