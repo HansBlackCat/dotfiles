@@ -163,9 +163,9 @@ alias cat="bat"
 
 # File Trasnfer
 # trasnfer.sh
-transfer(){ 
+transfersh_put(){ 
 	if [ $# -eq 0 ]; then 
-		echo "No arguments specified.\nUsage:\n  transfer <file|directory>\n  ... | transfer <file_name>" >&2
+		echo "No arguments specified.\nUsage:\n  transfersh_put <file|directory>\n  ... | transfersh_put <file_name>" >&2
 		return 1
 	fi
 
@@ -179,13 +179,29 @@ transfer(){
 		fi
 
 		if [ -d "$file" ]; then 
-			file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null,;
+			file_name="$file_name.zip"
+			(cd "$file"&&zip -r -q - .) | openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT --socks5-hostname localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
 		else 
-			cat "$file"|curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null;
+			cat "$file" | openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT --socks5-hostname localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name"| tee /dev/null
 		fi
 
-	else file_name=$1;curl --progress-bar --upload-file "-" "https://transfer.sh/$file_name"|tee /dev/null
+	else 
+		file_name=$1
+		openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT --socks5-hostname localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
 	fi;
+}
+transfersh_get() {
+	if [ $# -lt 3 ]; then
+		echo "Insufficient arguments specified.\nUsage:\n  transfersh_get <address_hash> <file_name> <object_DIRECTORY>" >&2
+		return 1
+	fi
+
+	address_hash="$1"
+	file_name="$2"
+	object_directory="$3"
+
+	echo "Enter Password: "
+	curl "https://transfer.sh/$address_hash/$file_name" | openssl camellia-256-cbc -pbkdf2 -d > $object_directory/$file_name
 }
 
 ## Applications EnvVars
@@ -193,6 +209,8 @@ transfer(){
 export DOOMDIR="~/.config/doom"
 # Python IncludePath Problem
 export CPATH=/usr/include/python3.9:$CPATH
+# Flutter Env
+# CHROME_EXECUTABLE=<path_to_chrome>
 
 
 #####################################################################
