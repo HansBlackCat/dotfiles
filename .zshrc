@@ -165,12 +165,13 @@ alias cat="bat"
 # trasnfer.sh
 transfersh_put(){ 
 	if [ $# -eq 0 ]; then 
-		echo "No arguments specified.\nUsage:\n  transfersh_put <file|directory>\n  ... | transfersh_put <file_name>" >&2
+		echo "No arguments specified.\nUsage:\n  transfersh_put <args> <file|directory>\n  ... | transfersh_put <args> <file_name>" >&2
 		return 1
 	fi
 
 	if tty -s; then
-		file="$1"
+		args="$1"
+		file="$2"
 		file_name=$(basename "$file")
 
 		if [ ! -e "$file" ]; then 
@@ -180,14 +181,15 @@ transfersh_put(){
 
 		if [ -d "$file" ]; then 
 			file_name="$file_name.zip"
-			(cd "$file"&&zip -r -q - .) | openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT --socks5-hostname localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
+			(cd "$file"&&zip -r -q - .) | openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT $args --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
 		else 
 			cat "$file" | openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT --socks5-hostname localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name"| tee /dev/null
 		fi
 
 	else 
-		file_name=$1
-		openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT --socks5-hostname localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
+		args="$1"
+		file_name="$2"
+		openssl camellia-256-cbc -pbkdf2 -e | curl -X PUT $args localhost:9050 --progress-bar --upload-file "-" "https://transfer.sh/$file_name" | tee /dev/null
 	fi;
 }
 transfersh_get() {
