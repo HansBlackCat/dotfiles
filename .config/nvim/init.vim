@@ -4,7 +4,9 @@
 call plug#begin(stdpath('data') . '/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" CocInstall coc-json coc-tsserver coc-rust-anlyzer coc-toml
+" CocInstall coc-json coc-tsserver coc-rust-analyzer coc-toml coc-markdownlint coc-pairs coc-eslint
+
+Plug 'kyoz/purify', {'rtp': 'vim'}
 
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
@@ -13,9 +15,24 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " python3 -m pip install --user --upgrade pynvim
 
+Plug 'valloric/youcompleteme', {'do': 'python3 ./install.py --clangd-completer'}
+" https://vimawesome.com/plugin/youcompleteme
+
 " Initialize plugin system
 call plug#end()
 
+" -----------------------------------------------------------------------------
+" YCM
+" set rtp+=~/.vim/bundle/YouCompleteMe
+autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+
+
+" -----------------------------------------------------------------------------
+"  Coc.nvim
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-rust-analyzer', 'coc-toml', 'coc-markdownlint', 'coc-eslint', 'coc-pairs']
+
+" -----------------------------------------------------------------------------
+" Basic Settings
 set encoding=UTF-8
 
 set nocompatible            " disable compatibility to old-time vi
@@ -36,9 +53,20 @@ filetype plugin indent on   "allow auto-indenting depending on file type
 syntax on                   " syntax highlighting
 set mouse=a                 " enable mouse click
 set clipboard=unnamedplus   " using system clipboard
-filetype plugin on
 set cursorline              " highlight current cursorline
 set ttyfast                 " Speed up scrolling in Vim
 " set spell                 " enable spell check (may need to download language package)
 " set noswapfile            " disable creating swap file
-" set backupdir=~/.cache/vim " Directory to store backup files.
+" set backupdir=~/.cache/vim" Directory to store backup files.
+set textwidth=0             " Disable text width
+set wrapmargin=0            " Disable wrapmargin
+set wrap                    " Set wrap, if char exceep window lim, display as if newlined (Actually not)
+
+
+" color schemes
+ if (has("termguicolors"))
+ set termguicolors
+ endif
+ syntax enable
+ " colorscheme evening
+colorscheme purify
