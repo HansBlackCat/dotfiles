@@ -115,6 +115,9 @@ set modelines=5
 set rtp+=~/.vim/bundle/YouCompleteMe
 autocmd BufRead,BufNewFile * setlocal signcolumn=yes
 
+" Custom
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 
 
 "-------------------------------------------------------------------------------
