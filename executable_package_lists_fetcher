@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Use cronteb to control
+
+OS_DIST=$(cat /etc/os-release | grep -Po '^NAME="\K[a-zA-Z0-9 ]*')
+PACMAN_LISTS_RAW=$(comm -3 <(comm -23 <(pacman -Qqe | sort) <({ pacman -Qqg base-devel; expac -l '\n' '%E' base; } | sort -u) ) <(pacman -Qqm | sort))
+AUR_LISTS_RAW=$(pacman -Qqm)
+
+PACMAN_LISTS=$(comm -23 <( echo $PACMAN_LISTS_RAW | tr ' ' '\n' | sort ) <(cat $HOME/package_lists/_pacman_exclude_lists.txt | sort))
+AUR_LISTS=$(comm -23 <( echo $AUR_LISTS_RAW | tr ' ' '\n' | sort ) <(cat $HOME/package_lists/_aur_exclude_lists.txt))
+
+if [[ -e "$HOME/package_lists/pacman_lists_latest.txt" ]]; then
+  echo $PACMAN_LISTS > "pacman_lists_latest.txt"
+fi
+
+if [[ -e "$HOME/package_lists/aur_lists_latest.txt" ]]; then
+  echo $AUR_LISTS > "aur_lists_latest.txt"
+fi
+
+cd $HOME/package_lists
+echo $PACMAN_LISTS > "pacman_lists_$(date -uI).txt"
+echo $AUR_LISTS > "aur_lists_$(date -uI).txt"
+cd - 1> /dev/null
