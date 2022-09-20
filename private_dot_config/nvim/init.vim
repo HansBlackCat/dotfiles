@@ -6,7 +6,6 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
 
-Plug 'majutsushi/tagbar'
 Plug 'ronakg/quickr-cscope.vim'
 "Plug 'xolox/vim-easytags'
 
@@ -48,6 +47,12 @@ function! LoadCscope()
   endif
 endfunction
 au BufEnter /* call LoadCscope()
+
+"-------------------------------------------------------------------------------
+" YCM
+let g:ycm_python_interpreter_path='$(which python3)'
+set rtp+=${HOME}/.config/nvim/bundle/YouCompleteMe
+autocmd BufRead,BufNewFile * setlocal signcolumn=yes
 
 
 "-------------------------------------------------------------------------------
@@ -95,6 +100,13 @@ set ttyfast                 " Speed up scrolling in Vim
 set textwidth=0             " Disable text width
 set wrapmargin=0            " Disable wrapmargin
 set wrap                    " Set wrap, if char exceep window lim, display as if newlined (Actually not)
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
 
 
 " color schemes

@@ -111,7 +111,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias cdk="cd Desktop/kernel/linux-5.15.65"
+alias cdk="cd ${HOME}/Desktop/kernel/linux-5.15.65"
 
 export PATH="${HOME}/bin/:$PATH"
 
