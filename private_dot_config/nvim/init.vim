@@ -9,6 +9,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'ronakg/quickr-cscope.vim'
 "Plug 'xolox/vim-easytags'
 
+Plug 'calincru/flex-bison-syntax'
+
 " Initialize plugin system
 call plug#end()
 

@@ -23,3 +23,6 @@ python3 install.py --clangd-completer
 
 # run :Pluginstall
 vim +'PlugInstall --sync' +qa
+
+# reload ~/.zshrc
+chezmoi -v apply
