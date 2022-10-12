@@ -1,3 +1,6 @@
+# ssh
+sudo ufw allow 22
+sudo ufw allow ssh
 
 echo "Install zsh-autosuggestions"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -26,3 +29,6 @@ vim +'PlugInstall --sync' +qa
 
 # reload ~/.zshrc
 chezmoi -v apply
+
+# git credential cache
+git config --global credential.helper 'cache --timeout=3600'
