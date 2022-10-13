@@ -3,8 +3,15 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin(stdpath('data') . '/plugged')
 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'vim-airline/vim-airline'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'preservim/nerdtree'
+ Plug 'ryanoasis/vim-devicons'
+
 
 Plug 'ronakg/quickr-cscope.vim'
 "Plug 'xolox/vim-easytags'
@@ -30,7 +37,7 @@ set statusline+=%#StatusLine#\ %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 "-------------------------------------------------------------------------------
 " tagbar plugin configuration
 "
-let g:tagbar_width=22
+let g:tagbar_width=20
 autocmd VimEnter * nested :call tagbar#autoopen(1)
 autocmd FileType * nested :call tagbar#autoopen(0)
 autocmd BufEnter * nested :call tagbar#autoopen(0)
@@ -52,35 +59,90 @@ function! LoadCscope()
 endfunction
 au BufEnter /* call LoadCscope()
 
+
+"-------------------------------------------------------------------------------
+" coc.nvim
+source ~/.config/nvim/coc.vim
+
+" notes
+" C/C++: needs compile_commands.json, symlink to `SOURCE` directory
+" https://clangd.llvm.org/installation.html#project-setup
+"
+
+"-------------------------------------------------------------------------------
+" vim-airline
+
+" Add additional information on airline
+function! StatusDiagnostic() abort
+    let info = get(b:, 'coc_diagnostic_info', {})
+    if empty(info) | return '' | endif
+    let msgs = []
+    if get(info, 'error', 0)
+        call add(msgs, 'E' . info['error'])
+    endif
+    if get(info, 'warning', 0)
+        call add(msgs, 'W' . info['warning'])
+    endif
+    return join(msgs, ' '). ' ' . get(g:, 'coc_status', '') . ' ' . get(b:, 'coc_current_function', '')
+endfunction
+
+let g:airline_section_c = '%{StatusDiagnostic()}'
+
+" Enable tab feature
+let g:airline#extensions#tabline#enabled = 1
+
+
+
+"-------------------------------------------------------------------------------
+" lsp_cxx_highlight
+" let g:lsp_cxx_hl_ft_whitelist += ['cxx', 'c++']
+
+
+"-------------------------------------------------------------------------------
+" NERDTree
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <leader>t :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeFind<CR>
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" Close the tab if NERDTree is the only window remaining in it.
+" autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+
 "-------------------------------------------------------------------------------
 " YCM
-let g:ycm_python_interpreter_path='$(which python3)'
-let g:ycm_add_preview_to_completeopt='popup'
-let g:ycm_enable_semantic_highlighting=1
-let g:ycm_enable_inlay_hints=1
-" let g:ycm_clear_inlay_hints_in_insert_mode=1
-let g:ycm_echo_current_diagnostic='virtual-text'
-let g:ycm_update_diagnostics_in_insert_mode=0
+" let g:ycm_python_interpreter_path='$(which python3)'
+" let g:ycm_add_preview_to_completeopt='popup'
+" let g:ycm_enable_semantic_highlighting=1
+" let g:ycm_enable_inlay_hints=1
+" " let g:ycm_clear_inlay_hints_in_insert_mode=1
+" let g:ycm_echo_current_diagnostic='virtual-text'
+" let g:ycm_update_diagnostics_in_insert_mode=0
 
-" <leader> == '\'
-nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
-nmap <leader>yfd <Plug>(YCMFindSymbolInDocument)
+" " <leader> == '\'
+" nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
+" nmap <leader>yfd <Plug>(YCMFindSymbolInDocument)
 
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-nnoremap <leader>gg :YcmCompleter GoToImprecise<CR>
-nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>t :YcmCompleter GetType<CR>
-nnoremap <leader>p :YcmCompleter GetParent<CR>
+" nnoremap <leader>g :YcmCompleter GoTo<CR>
+" nnoremap <leader>gg :YcmCompleter GoToImprecise<CR>
+" nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
+" nnoremap <leader>t :YcmCompleter GetType<CR>
+" nnoremap <leader>p :YcmCompleter GetParent<CR>
 
-set rtp+=${HOME}/.config/nvim/bundle/YouCompleteMe
-autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+" set rtp+=${HOME}/.config/nvim/bundle/YouCompleteMe
+" autocmd BufRead,BufNewFile * setlocal signcolumn=yes
 
 
 "-------------------------------------------------------------------------------
 " TermDebug
 " https://github.com/vim/vim/blob/master/runtime/pack/dist/opt/termdebug
 "
-" packadd! termdebug
+packadd! termdebug
 
 "-------------------------------------------------------------------------------
 " vim-easytags
