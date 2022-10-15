@@ -10,8 +10,14 @@ Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-fugitive'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'preservim/nerdtree'
- Plug 'ryanoasis/vim-devicons'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'philrunninger/nerdtree-visual-selection'
+" gc
+Plug 'tpope/vim-commentary'
+Plug 'ctrlpvim/ctrlp.vim'
 
+" Plug 'vhdirk/vim-cmake'
+Plug 'skywind3000/asyncrun.vim'
 
 Plug 'ronakg/quickr-cscope.vim'
 "Plug 'xolox/vim-easytags'
@@ -22,6 +28,10 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " Initialize plugin system
 call plug#end()
+
+"-------------------------------------------------------------------------------
+" CMake
+source ~/.config/nvim/cmake.vim
 
 "-------------------------------------------------------------------------------
 " Fugitive plugin: show Git status in statusline
@@ -67,7 +77,7 @@ source ~/.config/nvim/coc.vim
 " notes
 " C/C++: needs compile_commands.json, symlink to `SOURCE` directory
 " https://clangd.llvm.org/installation.html#project-setup
-"
+
 
 "-------------------------------------------------------------------------------
 " vim-airline
@@ -100,43 +110,8 @@ let g:airline#extensions#tabline#enabled = 1
 
 "-------------------------------------------------------------------------------
 " NERDTree
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader>t :NERDTreeToggle<CR>
-nnoremap <leader>f :NERDTreeFind<CR>
 
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Close the tab if NERDTree is the only window remaining in it.
-" autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-
-
-"-------------------------------------------------------------------------------
-" YCM
-" let g:ycm_python_interpreter_path='$(which python3)'
-" let g:ycm_add_preview_to_completeopt='popup'
-" let g:ycm_enable_semantic_highlighting=1
-" let g:ycm_enable_inlay_hints=1
-" " let g:ycm_clear_inlay_hints_in_insert_mode=1
-" let g:ycm_echo_current_diagnostic='virtual-text'
-" let g:ycm_update_diagnostics_in_insert_mode=0
-
-" " <leader> == '\'
-" nmap <leader>yfw <Plug>(YCMFindSymbolInWorkspace)
-" nmap <leader>yfd <Plug>(YCMFindSymbolInDocument)
-
-" nnoremap <leader>g :YcmCompleter GoTo<CR>
-" nnoremap <leader>gg :YcmCompleter GoToImprecise<CR>
-" nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
-" nnoremap <leader>t :YcmCompleter GetType<CR>
-" nnoremap <leader>p :YcmCompleter GetParent<CR>
-
-" set rtp+=${HOME}/.config/nvim/bundle/YouCompleteMe
-" autocmd BufRead,BufNewFile * setlocal signcolumn=yes
-
+source ~/.config/nvim/nerdtree.vim
 
 "-------------------------------------------------------------------------------
 " TermDebug
@@ -184,7 +159,7 @@ set mouse=a                 " enable mouse click
 set clipboard=unnamedplus   " using system clipboard
 set cursorline              " highlight current cursorline
 set ttyfast                 " Speed up scrolling in Vim
-set spell                 " enable spell check (may need to download language package)
+" set spell                 " enable spell check (may need to download language package)
 " set noswapfile            " disable creating swap file
 " set backupdir=~/.cache/vim" Directory to store backup files.
 set textwidth=0             " Disable text width
@@ -196,6 +171,28 @@ set lazyredraw              " lazyredraw
 set noequalalways           " do not equalize the size of the buffers
 set magic                   " regular expressions
 
+" Mappings to access buffers (don't use "\p" because a
+" delay before pressing "p" would accidentally paste).
+" \l       : list buffers
+" \b \f \g : go back/forward/last-used
+" \1 \2 \3 : go to buffer 1/2/3 etc
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+" It's useful to show the buffer number in the status line.
+set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -203,9 +200,9 @@ autocmd BufReadPost *
      \ endif
 
 " color schemes
- if (has("termguicolors"))
- set termguicolors
- endif
+" if (has("termguicolors"))
+"   set termguicolors
+" endif
 
 colorscheme tokyonight
 "colorscheme tokyonight-night

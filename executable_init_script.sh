@@ -11,9 +11,9 @@ sudo apt install vim man-db manpages-posix manpages-dev manpages-posix-dev -y
 
 sudo apt install gcc clang clangd python3 python-dev python3-dev tmux cmake exuberant-ctags cscope -y
 sudo apt install git openssh-server build-essential ncurses-dev libssl-dev flex bison libelf-dev neovim zsh fzf -y
-sudo apt install flex -y
+sudo apt install flex bison -y
 
-sudo apt install curl wget -y
+sudo apt install curl wget bear -y
 
 # nodejs
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
