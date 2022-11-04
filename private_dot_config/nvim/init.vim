@@ -22,7 +22,12 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'ronakg/quickr-cscope.vim'
 "Plug 'xolox/vim-easytags'
 
+" https://github.com/rcarriga/nvim-notify
+Plug 'rcarriga/nvim-notify'
+
 Plug 'calincru/flex-bison-syntax'
+
+Plug 'rcarriga/nvim-notify'
 
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
@@ -32,6 +37,8 @@ call plug#end()
 "-------------------------------------------------------------------------------
 " CMake
 source ~/.config/nvim/cmake.vim
+
+
 
 "-------------------------------------------------------------------------------
 " Fugitive plugin: show Git status in statusline
@@ -101,17 +108,14 @@ let g:airline_section_c = '%{StatusDiagnostic()}'
 " Enable tab feature
 let g:airline#extensions#tabline#enabled = 1
 
-
-
-"-------------------------------------------------------------------------------
-" lsp_cxx_highlight
-" let g:lsp_cxx_hl_ft_whitelist += ['cxx', 'c++']
-
-
 "-------------------------------------------------------------------------------
 " NERDTree
 
 source ~/.config/nvim/nerdtree.vim
+
+"-------------------------------------------------------------------------------
+" nvim-notify
+source ${HOME}/.config/nvim/nvim-notify.vim
 
 "-------------------------------------------------------------------------------
 " TermDebug
@@ -200,9 +204,9 @@ autocmd BufReadPost *
      \ endif
 
 " color schemes
-" if (has("termguicolors"))
-"   set termguicolors
-" endif
+if (has("termguicolors"))
+  set termguicolors
+endif
 
 colorscheme tokyonight
 "colorscheme tokyonight-night

@@ -1907,7 +1907,7 @@
       "type": "boolean",
       "scope": "application",
       "description": "Not make vim select first item on popupmenu shown",
-      "default": true
+      "default": false
     },
     "suggest.preferCompleteThanJumpPlaceholder": {
       "type": "boolean",

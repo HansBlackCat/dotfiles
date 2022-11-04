@@ -73,10 +73,30 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
+" Tab to coc-snippet-next
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+let g:coc_snippet_next = '<tab>'
+
+" multi cursor support
+xmap <silent> <C-d> <Plug>(coc-cursors-range)
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(b:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
 
 
-
-
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-toml', 'coc-markdownlint', 'coc-eslint', 'coc-pairs', 'coc-clangd']
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-toml', 'coc-markdownlint', 'coc-eslint', 'coc-pairs', 'coc-clangd', 'coc-lightbulb', 'coc-clang-format-style-options']
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
