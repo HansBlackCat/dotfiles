@@ -29,4 +29,3 @@ if has("nvim")
     call v:lua.coc_notify(msg, 'info')
   endfunction
 endif
-
