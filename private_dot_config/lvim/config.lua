@@ -17,6 +17,11 @@ require("keymaps")
 -- Custom plugins
 require("plugins")
 
+-- Plugin settings
+require("core.vista-config")
+require("core.nvim-tree-config")
+require("core.goto-preview-config")
+
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
