@@ -122,3 +122,6 @@ alias nv=nvim
 
 #[ -f "/home/jungbumlee/.ghcup/env" ] && source "/home/jungbumlee/.ghcup/env" # ghcup-env
 [ -f "/home/jungbumlee/.ghcup/env" ] && source "/home/jungbumlee/.ghcup/env" # ghcup-env
+
+export PATH="${HOME}/.cargo/bin:$PATH"
+

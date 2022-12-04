@@ -7,8 +7,8 @@ lvim.builtin.which_key.mappings["]"] = { ":BufferLineCycleNext<CR>", "BufferLine
 lvim.builtin.which_key.mappings["["] = { ":BufferLineCyclePrev<CR>", "BufferLineCyclePrev" }
 
 -- hop.nvim
-vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
-vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+-- vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+-- vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
 
 -- telescope.nvim
 lvim.builtin.which_key.mappings["sg"] = { "<cmd>Telescope live_grep<cr>", "Live grep" }

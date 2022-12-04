@@ -1,0 +1,9 @@
+-- local linters = require("lvim.lsp.null-ls.linters")
+-- linters.setup({
+--   {
+--     command = "cppcheck",
+--     args = { "--enable=all ./" },
+--     filetypes = { "c", "cpp" },
+--     offsetEncoding = { "utf-8" }
+--   }
+-- })

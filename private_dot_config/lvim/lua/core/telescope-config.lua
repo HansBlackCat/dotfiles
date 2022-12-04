@@ -1,0 +1,2 @@
+-- trouble.nvim integration
+-- local actions = require("telescope.actions")

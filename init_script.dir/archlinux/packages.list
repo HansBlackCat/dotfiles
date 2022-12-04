@@ -28,3 +28,16 @@ fd
 npm
 tar
 make
+cppcheck
+xmlto
+kmod
+inetutils
+bc
+libelf
+cpio
+perl
+tar
+xz
+trace-cmd
+texlive-most
+emacs
