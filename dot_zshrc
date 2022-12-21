@@ -125,3 +125,5 @@ alias nv=nvim
 
 export PATH="${HOME}/.cargo/bin:$PATH"
 
+alias simm="${HOME}/Desktop/introduction_to_compiler/project4/simulator/sim"
+

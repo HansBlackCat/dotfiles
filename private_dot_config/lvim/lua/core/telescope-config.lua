@@ -1,2 +1,4 @@
 -- trouble.nvim integration
 -- local actions = require("telescope.actions")
+-- local builtin = require("telescope.builtin")
+-- lvim.builtin.which_key.mappings["v"] = { "<cmd>Vista!!<cr>", "Toggle Vista" }

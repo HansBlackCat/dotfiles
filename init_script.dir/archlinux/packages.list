@@ -41,3 +41,6 @@ xz
 trace-cmd
 texlive-most
 emacs
+tmux
+bat
+emscripten

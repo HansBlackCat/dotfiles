@@ -93,4 +93,7 @@ lvim.plugins = {
   {
     "preservim/tagbar"
   },
+  {
+    "tpope/vim-surround"
+  },
 }
