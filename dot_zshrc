@@ -1,0 +1,53 @@
+### Start of Zinit's installer chunk
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+
+autoload -Uz compinit
+compinit
+
+export XDG_CONFIG_HOME=${HOME}/.config
+export ZSH_CONFIG_HOME=${HOME}/.config/shell_config
+
+export SAVEHIST=10000
+export HISTSIZE=10000
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+export HISTFILE=${HOME}/.zsh_history
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light zdharma-continuum/zinit-annex-as-monitor
+zinit light zdharma-continuum/zinit-annex-bin-gem-node
+zinit light zdharma-continuum/zinit-annex-patch-dl
+zinit light zdharma-continuum/zinit-annex-rust
+
+# Prompt
+zinit ice from"gh-r" as"command" atload'eval "$(starship init zsh)"'
+zinit load starship/starship
+
+zinit load zdharma-continuum/history-search-multi-word
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light MichaelAquilina/zsh-you-should-use
+zinit snippet OMZ::plugins/git/git.plugin.zsh
+zinit load 'zsh-users/zsh-history-substring-search'
+zinit ice wait atload'_history_substring_search_config'
+
+zinit ice depth=1
+zinit light jeffreytse/zsh-vi-mode
+
+
+zinit as"null" wait"2" lucid from"gh-r" for \
+    sbin"bin/exa"  ogham/exa \
+    mv"fd* -> fd" sbin"fd/fd"  @sharkdp/fd \
+    sbin"fzf"  junegunn/fzf-bin \
+    sbin"carapace" carapace-sh/carapace-bin
+
+source ${ZSH_CONFIG_HOME}/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ${ZSH_CONFIG_HOME}/carapace/carapace.zsh
