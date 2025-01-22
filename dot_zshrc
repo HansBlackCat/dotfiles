@@ -42,12 +42,19 @@ zinit ice wait atload'_history_substring_search_config'
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode
 
-
 zinit as"null" wait"2" lucid from"gh-r" for \
     sbin"bin/exa"  ogham/exa \
     mv"fd* -> fd" sbin"fd/fd"  @sharkdp/fd \
     sbin"fzf"  junegunn/fzf-bin \
-    sbin"carapace" carapace-sh/carapace-bin
+    sbin"carapace" carapace-sh/carapace-bin \
 
+zi as"null" wait"2" lucid from"gh-r" bpick"*linux_amd64.tar.gz" for \
+    sbin"chezmoi" twpayne/chezmoi
+
+source ${ZSH_CONFIG_HOME}/alias.sh
 source ${ZSH_CONFIG_HOME}/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ${ZSH_CONFIG_HOME}/carapace/carapace.zsh
+
+# Package managers
+source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
