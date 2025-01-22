@@ -1,6 +1,6 @@
 # version: 1.0.0
 
-add_newline = true
+add_newline = false
 continuation_prompt = "[▸▹ ](dimmed white)"
 
 format = """($nix_shell$container$fill$git_metrics\n)$cmd_duration\
@@ -92,7 +92,7 @@ symbol = ' '
 [character]
 format = "$symbol "
 success_symbol = "[◎](bold italic bright-yellow)"
-error_symbol = "[○](italic purple)"
+error_symbol = "[○](italic red)"
 vimcmd_symbol = "[𝑣](italic bright-green)"
 # not supported in zsh
 vimcmd_replace_one_symbol = "◌"

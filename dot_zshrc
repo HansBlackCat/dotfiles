@@ -47,6 +47,12 @@ zinit as"null" wait"2" lucid from"gh-r" for \
     mv"fd* -> fd" sbin"fd/fd"  @sharkdp/fd \
     sbin"fzf"  junegunn/fzf-bin \
     sbin"carapace" carapace-sh/carapace-bin \
+    sbin"bat" @sharkdp/bat \
+    sbin"rg" @BurntSushi/ripgrep \
+    sbin"ya" sbin"yazi" @sxyazi/yazi
+
+zi ice from"gh-r" as"command" atload'eval "$(zoxide init zsh)"'
+zi load ajeetdsouza/zoxide
 
 zi as"null" wait"2" lucid from"gh-r" bpick"*linux_amd64.tar.gz" for \
     sbin"chezmoi" twpayne/chezmoi
