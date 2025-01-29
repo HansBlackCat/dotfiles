@@ -61,6 +61,15 @@ source ${ZSH_CONFIG_HOME}/alias.sh
 source ${ZSH_CONFIG_HOME}/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ${ZSH_CONFIG_HOME}/carapace/carapace.zsh
 
+# #############################################################################
+# Load Managers
+# #############################################################################
+
 # Package managers
-source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# . "$HOME/.cargo/env"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
