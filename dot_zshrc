@@ -54,9 +54,6 @@ zinit as"null" wait"2" lucid from"gh-r" for \
 zi ice from"gh-r" as"command" atload'eval "$(zoxide init zsh)"'
 zi load ajeetdsouza/zoxide
 
-zi as"null" wait"2" lucid from"gh-r" bpick"*linux_amd64.tar.gz" for \
-    sbin"chezmoi" twpayne/chezmoi
-
 zi snippet OMZL::git.zsh
 
 zi ice as"completion"
