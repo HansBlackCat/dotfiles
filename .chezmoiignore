@@ -1,0 +1,13 @@
+*.log
+.DS_Store
+**/secrets*
+
+# Chezmoi secret
+# .config/chezmoi/secrets
+
+# Neovim
+.config/nvim/lazy-lock.json
+
+# SSH
+.ssh/authorized_keys
+#.ssh/secrets
