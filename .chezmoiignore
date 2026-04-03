@@ -1,6 +1,7 @@
 *.log
 .DS_Store
 **/secrets*
+**/.secrets*
 
 # Chezmoi secret
 # .config/chezmoi/secrets

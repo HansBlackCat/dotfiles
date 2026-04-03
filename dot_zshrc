@@ -95,6 +95,8 @@ export NVM_DIR="$HOME/.nvm"
 # #############################################################################
 
 [ -s "${XDG_CONFIG_HOME}/.nas_config/config.sh" ] && \. "${XDG_CONFIG_HOME}/.nas_config/config.sh"
+[ -s "${XDG_CONFIG_HOME}/.wsl_config/config.sh" ] && \. "${XDG_CONFIG_HOME}/.wsl_config/config.sh"
+[ -s "${XDG_CONFIG_HOME}/.sshfs_config/config.sh" ] && \. "${XDG_CONFIG_HOME}/.sshfs_config/config.sh"
 
 
 #. "/home/hansblackcatnas/.acme.sh/acme.sh.env"
