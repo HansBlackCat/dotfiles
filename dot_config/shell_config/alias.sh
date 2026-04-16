@@ -1,7 +1,7 @@
 alias hm=home-manager
 alias ble="brew list --installed-on-request"
-alias exal="exa -bghHliS"
+alias exal="eza -bghHliS"
 alias cat="bat"
-alias exaa="exa -abghHliS"
+alias exaa="eza -abghHliS"
 alias nv="nvim"
 alias chezig="nvim ~/.local/share/chezmoi/.chezmoiignore"

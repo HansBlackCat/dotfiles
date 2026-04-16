@@ -1,3 +1,5 @@
+scan_timeout = 500
+
 format = """
 [](#9A348E)\
 $os\
