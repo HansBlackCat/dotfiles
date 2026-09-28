@@ -41,9 +41,6 @@ zinit light MichaelAquilina/zsh-you-should-use
 zinit snippet OMZ::plugins/git/git.plugin.zsh
 zinit load 'zsh-users/zsh-history-substring-search'
 zinit ice wait atload'_history_substring_search_config'
- 
-zinit ice depth=1
-# zinit light jeffreytse/zsh-vi-mode
 
 zinit as"null" wait"0" lucid from"gh-r" for \
     sbin"eza"  eza-community/eza \
@@ -53,15 +50,13 @@ zinit as"null" wait"0" lucid from"gh-r" for \
     sbin"rg" @BurntSushi/ripgrep \
     sbin"ya" sbin"yazi" blockf @sxyazi/yazi
 
+zi ice from"gh-r" as"program" \
+    sbin"tree-sitter"
+zi load tree-sitter/tree-sitter
+
+
 zi ice from"gh-r" as"command" atload'eval "$(zoxide init zsh)"'
 zi load ajeetdsouza/zoxide
-
-zinit ice from"gh-r" as"program" \
-  atclone"chmod +x uv*" \
-  atpull"%atclone" \
-  mv"uv* -> uv" \
-  sbin"uv"
-zinit load astral-sh/uv
 
 zi snippet OMZL::git.zsh
 
@@ -88,10 +83,12 @@ source ${ZSH_CONFIG_HOME}/zsh-history-substring-search/zsh-history-substring-sea
 # . "$HOME/.cargo/env"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="/home/hansblackcat/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+. "$HOME/.cargo/env"
 
 # #############################################################################
 # Some Machine Specific Env
@@ -102,14 +99,7 @@ export PATH="/home/hansblackcat/.local/bin:$PATH"
 [ -s "${XDG_CONFIG_HOME}/.sshfs_config/config.sh" ] && \. "${XDG_CONFIG_HOME}/.sshfs_config/config.sh"
 
 
-#. "/home/hansblackcatnas/.acme.sh/acme.sh.env"
-
 # Zsh profiling
 #zprof
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-. "$HOME/.cargo/env"
