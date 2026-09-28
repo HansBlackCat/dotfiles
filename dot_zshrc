@@ -88,7 +88,7 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-. "$HOME/.cargo/env"
+[ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
 
 # #############################################################################
 # Some Machine Specific Env
