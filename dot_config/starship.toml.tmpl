@@ -1,55 +1,83 @@
 scan_timeout = 500
+palette = "custom"
 
 format = """
-[](#9A348E)\
+[](colorhostname)\
 $os\
-$username\
 $hostname\
-[](bg:#DA627D fg:#9A348E)\
+[](bg:color2 fg:colorhostname)\
+$username\
+[](fg:color2 bg:color3)\
 $directory\
-[](fg:#DA627D bg:#FCA17D)\
+[](fg:color3 bg:color4)\
 $git_branch\
 $git_status\
-[](fg:#FCA17D bg:#86BBD8)\
-$c\
-$elixir\
-$elm\
-$golang\
-$gradle\
-$haskell\
-$java\
-$julia\
-$nodejs\
-$nim\
-$rust\
-$scala\
-[](fg:#86BBD8 bg:#06969A)\
+[](fg:color4 bg:color5)\
 $docker_context\
-[](fg:#06969A bg:#33658A)\
+[](fg:color5 bg:color6)\
 $time\
-[ ](fg:#33658A)\
+[ ](fg:color6)\
 \n$character"""
 
 # Disable the blank line at the start of the prompt
 # add_newline = false
 
+[palettes.custom]
+{{- if eq .machineCode "31c76b52" }}
+colorhostname = "#8F6FA8"
+{{- else if eq .machineCode "78f1446d" }}
+colorhostname = "#A86F7D"
+{{- else if eq .machineCode "6ae79a60" }}
+colorhostname = "#B7835A"
+{{- else if eq .machineCode "ff514f36" }}
+colorhostname = "#6F8F78"
+{{- else if eq .machineCode "5" }}
+colorhostname = "#5F8796"
+{{- else }}
+colorhostname = "#6F789E"
+{{- end }}
+#colorhostname1 = "#8F6FA8" # muted purple
+#colorhostname2 = "#A86F7D" # dusty rose
+#colorhostname3 = "#B7835A" # muted amber
+#colorhostname4 = "#6F8F78" # sage green
+#colorhostname5 = "#5F8796" # desaturated teal
+#colorhostname6 = "#6F789E" # muted indigo
+#color1 = "#9A348E"
+color2 = "#B7A6B8"
+color3 = "#C3A8AE"
+color4 = "#D0B29C"
+color5 = "#C6C2A5"
+color6 = "#A9B9C8"
+text = "#2B2D31"
+
+#color1 = "#9A348E"
+#color2 = "#DA627D"
+#color3 = "#FCA17D"
+#color4 = "#86BBD8"
+#color5 = "#06969A"
+#color6 = "#33658A"
+#text = "#FFFFFF"
+
+[hostname]
+ssh_only = false
+style = "bg:colorhostname fg:text"
+format = '[ $hostname ]($style)'
+trim_at = ""
+
+
 # You can also replace your username with a neat symbol like   or disable this
 # and use the os module below
 [username]
 show_always = true
-style_user = "bg:#9A348E"
-style_root = "bg:#9A348E"
-format = '[ $user]($style)'
+style_user = "bg:color2 fg:text"
+style_root = "bg:color2 fg:text"
+format = '[ $user ]($style)'
 disabled = false
-
-[hostname]
-style = "bg:#9A348E"
-format = '[@$hostname ]($style)'
 
 # An alternative to the username module which displays a symbol that
 # represents the current operating system
 [os]
-style = "bg:#9A348E"
+style = "bg:colorhostname fg:text"
 disabled = false # Disabled by default
 
 [os.symbols]
@@ -74,7 +102,7 @@ Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 
 [directory]
-style = "bg:#DA627D"
+style = "bg:color3 fg:text"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -94,79 +122,79 @@ truncation_symbol = "…/"
 
 [c]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [docker_context]
 symbol = " "
-style = "bg:#06969A"
+style = "bg:color5 fg:text"
 format = '[ $symbol $context ]($style)'
 
 [elixir]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
 symbol = ""
-style = "bg:#FCA17D"
+style = "bg:color4 fg:text"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
-style = "bg:#FCA17D"
+style = "bg:color4 fg:text"
 format = '[$all_status$ahead_behind ]($style)'
 
 [golang]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [gradle]
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [haskell]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [java]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [julia]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [nim]
 symbol = "󰆥 "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
 symbol = ""
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [scala]
 symbol = " "
-style = "bg:#86BBD8"
+style = "bg:color4 fg:text"
 format = '[ $symbol ($version) ]($style)'
 
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#33658A"
+style = "bg:color6 fg:text"
 format = '[ ♥ $time ]($style)'
