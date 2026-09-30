@@ -1,0 +1,40 @@
+# SSH tunnel list. Copy to tunnels.conf (per machine, not synced) and edit.
+# Saving tunnels.conf applies changes automatically via tunnels-sync.path.
+#
+# Format (whitespace-separated, one tunnel per line):
+#   name  ssh_target  remote_port  [local_port]  [remote_host]
+#
+#   name         Label only, no network meaning: becomes tunnel@<name>.service.
+#                Letters, digits, - and _. Renaming a line restarts that tunnel.
+#   ssh_target   Anything `ssh` accepts: user@ip, user@hostname, or a ~/.ssh/config alias.
+#   remote_port  Port on the remote side.
+#   local_port   Port opened on 127.0.0.1 here. Omit or use - to reuse remote_port.
+#   remote_host  Host the remote side connects to. Default 127.0.0.1 (the SSH server itself).
+#
+# Each line runs as its own ssh process, restarted by systemd 10s after it exits:
+#   ssh -N -L 127.0.0.1:<local_port>:<remote_host>:<remote_port> <ssh_target>
+# e.g. "a6000 james@192.0.2.10 8080" forwards localhost:8080 to port 8080 on 192.0.2.10.
+#
+# Rules:
+#   - Names and local ports must be unique; local ports must be >= 1024.
+#   - Any invalid line rejects the whole file and leaves running tunnels unchanged.
+#   - Before adding a new host or IP, run `ssh <ssh_target>` once by hand to accept
+#     its host key. Tunnels use key auth only and cannot answer prompts.
+#
+# Check:  systemctl --user status tunnel@<name>
+# Logs:   journalctl --user -u tunnel@<name> -f
+#         journalctl --user -u tunnels-sync -n 20   (rejected config reasons)
+#
+# Examples (uncomment to use):
+
+# Inference server; local port defaults to the same number as the remote port.
+#a6000        james@192.0.2.10     8080
+
+# Same service on a second server; remote 8080 is taken locally, so map it to 8081.
+#a6000-b      mark@192.0.2.11      8080   8081
+
+# Host defined in ~/.ssh/config.
+#lab-jupyter  lab-server           8888
+
+# Database on a private host reachable only from the SSH server.
+#db-private   james@192.0.2.10     5432   15432   10.0.0.20

@@ -1,0 +1,13 @@
+[Unit]
+Description=SSH tunnel %i
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+EnvironmentFile=%S/tunnels/env/%i.env
+ExecStart=/usr/bin/ssh -N -o BatchMode=yes -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3 -L 127.0.0.1:${LOCAL_PORT}:${REMOTE_HOST}:${REMOTE_PORT} ${SSH_TARGET}
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

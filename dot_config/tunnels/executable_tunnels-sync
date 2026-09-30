@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""Make running tunnel@<name> units match ~/.config/tunnels/tunnels.conf."""
+
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+CONF_DIR = Path(os.environ.get("TUNNELS_DIR", Path.home() / ".config" / "tunnels"))
+STATE_DIR = Path(os.environ.get("XDG_STATE_HOME", Path.home() / ".local" / "state")) / "tunnels"
+CONF = CONF_DIR / "tunnels.conf"
+ENV_DIR = STATE_DIR / "env"
+DRY_RUN = os.environ.get("TUNNELS_DRY_RUN") == "1"
+NAME = re.compile(r"^[A-Za-z0-9_-]+$")
+
+
+def systemctl(*args):
+    command = ["systemctl", "--user", *args]
+    if DRY_RUN:
+        print("DRY-RUN:", " ".join(command))
+        return
+    subprocess.run(command, check=False)
+
+
+def parse(text):
+    tunnels, errors, local_ports = {}, [], {}
+    for lineno, raw in enumerate(text.splitlines(), start=1):
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        fields = line.split()
+        if not 3 <= len(fields) <= 5:
+            errors.append(f"line {lineno}: expected 3-5 columns, got {len(fields)}")
+            continue
+        name, target, remote_port = fields[:3]
+        local_port = fields[3] if len(fields) > 3 and fields[3] != "-" else remote_port
+        remote_host = fields[4] if len(fields) > 4 else "127.0.0.1"
+        if not NAME.match(name):
+            errors.append(f"line {lineno}: invalid name {name!r}")
+            continue
+        if name in tunnels:
+            errors.append(f"line {lineno}: duplicate name {name!r}")
+            continue
+        try:
+            ports = int(remote_port), int(local_port)
+        except ValueError:
+            errors.append(f"line {lineno}: ports must be numbers")
+            continue
+        if not all(1 <= port <= 65535 for port in ports):
+            errors.append(f"line {lineno}: port out of range")
+            continue
+        if ports[1] < 1024:
+            errors.append(f"line {lineno}: local port {ports[1]} needs root; pick one >= 1024")
+            continue
+        if ports[1] in local_ports:
+            errors.append(f"line {lineno}: local port {ports[1]} already used by {local_ports[ports[1]]!r}")
+            continue
+        local_ports[ports[1]] = name
+        tunnels[name] = (
+            f"SSH_TARGET={target}\nLOCAL_PORT={ports[1]}\n"
+            f"REMOTE_HOST={remote_host}\nREMOTE_PORT={ports[0]}\n"
+        )
+    return tunnels, errors
+
+
+def main():
+    if not CONF.exists():
+        print(f"no config at {CONF}", file=sys.stderr)
+        return 1
+    tunnels, errors = parse(CONF.read_text())
+    if errors:
+        print("config rejected, nothing changed:", *errors, sep="\n  ", file=sys.stderr)
+        return 1
+    ENV_DIR.mkdir(parents=True, exist_ok=True)
+    existing = {path.stem for path in ENV_DIR.glob("*.env")}
+    for name in sorted(existing - tunnels.keys()):
+        systemctl("disable", "--now", f"tunnel@{name}.service")
+        (ENV_DIR / f"{name}.env").unlink()
+        print(f"removed {name}")
+    for name, env in sorted(tunnels.items()):
+        path = ENV_DIR / f"{name}.env"
+        if path.exists() and path.read_text() == env:
+            systemctl("enable", "--now", f"tunnel@{name}.service")
+            continue
+        path.write_text(env)
+        systemctl("enable", f"tunnel@{name}.service")
+        systemctl("restart", f"tunnel@{name}.service")
+        print(f"{'updated' if name in existing else 'added'} {name}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

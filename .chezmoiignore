@@ -7,6 +7,16 @@
 **/README*
 **/LICENSE*
 
+.local/state/tunnels
+.config/tunnels/tunnels.conf
+.config/systemd/user/*.wants
+
+# systemd units are Linux-only
+{{ if ne .chezmoi.os "linux" }}
+.config/systemd
+.config/tunnels
+{{ end }}
+
 # Chezmoi secret
 # .config/chezmoi/secrets
 

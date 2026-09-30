@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync SSH tunnels with ~/.config/tunnels/tunnels.conf
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/tunnels/tunnels-sync

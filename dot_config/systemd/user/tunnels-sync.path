@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch ~/.config/tunnels/tunnels.conf
+
+[Path]
+PathChanged=%h/.config/tunnels/tunnels.conf
+Unit=tunnels-sync.service
+
+[Install]
+WantedBy=default.target
