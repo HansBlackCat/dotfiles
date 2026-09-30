@@ -1,6 +1,12 @@
 # SSH tunnel list. Copy to tunnels.conf (per machine, not synced) and edit.
 # Saving tunnels.conf applies changes automatically via tunnels-sync.path.
 #
+# First-time setup on a new machine:
+#   cp ~/.config/tunnels/tunnels.conf.example ~/.config/tunnels/tunnels.conf   # then edit
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now tunnels-sync.path
+#   systemctl --user start tunnels-sync.service
+#
 # Format (whitespace-separated, one tunnel per line):
 #   name  ssh_target  remote_port  [local_port]  [remote_host]
 #
