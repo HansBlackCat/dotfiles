@@ -50,6 +50,11 @@ zinit as"null" wait"0" lucid from"gh-r" for \
     sbin"rg" @BurntSushi/ripgrep \
     sbin"ya" sbin"yazi" blockf @sxyazi/yazi
 
+# NVM
+export NVM_DIR="$HOME"/.nvm
+#export NVM_LAZY_LOAD=true
+zi light lukechilds/zsh-nvm
+
 zi ice from"gh-r" as"program" \
     sbin"tree-sitter"
 zi load tree-sitter/tree-sitter
@@ -82,13 +87,24 @@ source ${ZSH_CONFIG_HOME}/zsh-history-substring-search/zsh-history-substring-sea
 [ -s "/home/linuxbrew/.linuxbrew/bin/brew" ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # . "$HOME/.cargo/env"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export PATH="$HOME/.local/bin:$PATH"
 
 [ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+
+# #############################################################################
+# OS Specific Env
+# #############################################################################
+
+case "$OSTYPE" in
+  darwin*)
+    [ -s "$ZSH_CONFIG_HOME/platform/macos.zsh" ] &&
+      source "$ZSH_CONFIG_HOME/platform/macos.zsh"
+    ;;
+  linux*)
+    [ -s "$ZSH_CONFIG_HOME/platform/linux.zsh" ] &&
+      source "$ZSH_CONFIG_HOME/platform/linux.zsh"
+    ;;
+esac
 
 # #############################################################################
 # Some Machine Specific Env
@@ -99,7 +115,6 @@ export PATH="$HOME/.local/bin:$PATH"
 [ -s "${XDG_CONFIG_HOME}/.sshfs_config/config.sh" ] && \. "${XDG_CONFIG_HOME}/.sshfs_config/config.sh"
 
 
-# Zsh profiling
-#zprof
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+# #############################################################################
+# Auto Generated
+# #############################################################################

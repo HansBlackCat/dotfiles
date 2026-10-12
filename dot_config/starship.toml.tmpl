@@ -61,8 +61,12 @@ text = "#2B2D31"
 [hostname]
 ssh_only = false
 style = "bg:colorhostname fg:text"
-format = '[ $hostname ]($style)'
 trim_at = ""
+{{ if eq .machineCode "f0854a7a" }}
+format = '[ {{ .chezmoi.hostname | trunc 18 }} ]($style)'
+{{ else }}
+format = '[ $hostname ]($style)'
+{{ end }}
 
 
 # You can also replace your username with a neat symbol like   or disable this
