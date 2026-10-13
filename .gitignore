@@ -1,0 +1,9 @@
+# Secret directories at any depth, including their contents.
+**/secrets*/
+**/.secrets*/
+
+# Chezmoi source attributes, e.g. private_secrets and dot_secrets.
+**/*_secrets*/
+
+# Keep local bootstrap checks out of the dotfiles repository.
+/tests/

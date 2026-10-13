@@ -43,7 +43,6 @@ zinit load 'zsh-users/zsh-history-substring-search'
 zinit ice wait atload'_history_substring_search_config'
 
 zinit as"null" wait"0" lucid from"gh-r" for \
-    sbin"eza"  eza-community/eza \
     mv"fd* -> fd" sbin"fd/fd"  @sharkdp/fd \
     sbin"fzf"  junegunn/fzf-bin \
     sbin"bat" @sharkdp/bat \
@@ -52,7 +51,8 @@ zinit as"null" wait"0" lucid from"gh-r" for \
 
 # NVM
 export NVM_DIR="$HOME"/.nvm
-#export NVM_LAZY_LOAD=true
+# Let Emacs request eager loading when importing the shell environment.
+export NVM_LAZY_LOAD="${NVM_LAZY_LOAD:-true}"
 zi light lukechilds/zsh-nvm
 
 zi ice from"gh-r" as"program" \

@@ -1,11 +1,25 @@
 *.log
 .DS_Store
 **/secrets*
+**/secrets*/**
 **/.secrets*
+**/.secrets*/**
 
 **/history*
 **/README*
 **/LICENSE*
+
+# Source-only init helpers and checks
+scripts
+scripts/**
+tests
+tests/**
+
+# Personal Emacs configuration is opt-in
+{{ if ne (get . "profile" | default "common") "personal" }}
+.config/emacs
+.config/emacs/**
+{{ end }}
 
 .local/state/tunnels
 .config/tunnels/tunnels.conf

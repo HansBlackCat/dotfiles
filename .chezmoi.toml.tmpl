@@ -1,0 +1,32 @@
+{{- /* Preserve local settings; init only fills in missing bootstrap data. */ -}}
+{{- $config := dict -}}
+{{- if stat .chezmoi.configFile -}}
+{{- $config = include .chezmoi.configFile | fromToml -}}
+{{- end -}}
+
+{{- $profile := promptChoiceOnce . "profile" "Profile" (list "common" "personal") "common" -}}
+{{- if not (has $profile (list "common" "personal")) -}}
+{{- fail "profile must be common or personal" -}}
+{{- end -}}
+
+{{- if eq $profile "personal" -}}
+{{- $recipient := "age1xklzy7keh239v9rmmd0sukwmnw4dw2qq7m7zt9fv9l5u94fh5p6qxw4r7r" -}}
+{{- $identity := joinPath .chezmoi.homeDir ".config" "chezmoi" "secrets" "age.key" -}}
+{{- if not (stat $identity) -}}
+{{- fail (printf "personal requires the existing age key at %s; restore it before running chezmoi init --apply" $identity) -}}
+{{- end -}}
+{{- if ne (output .chezmoi.executable "age-keygen" "-y" $identity | trim) $recipient -}}
+{{- fail "age.key does not match this repository's public key; restore the correct existing key" -}}
+{{- end -}}
+{{- $config = $config | setValueAtPath "encryption" "age" | setValueAtPath "age.identity" $identity | setValueAtPath "age.recipient" $recipient -}}
+{{- end -}}
+
+{{- $machineCode := get . "machineCode" | default "" -}}
+{{- if eq $machineCode "" -}}
+{{- $machineCode = output "sh" (joinPath .chezmoi.sourceDir "scripts" "machine-code.sh") | trim -}}
+{{- if not (regexMatch "^[0-9a-f]{8}$" $machineCode) -}}
+{{- fail "machineCode generation failed" -}}
+{{- end -}}
+{{- end -}}
+
+{{- $config | setValueAtPath "data.profile" $profile | setValueAtPath "data.machineCode" $machineCode | toToml -}}
