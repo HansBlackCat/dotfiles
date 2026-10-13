@@ -7,3 +7,13 @@
 
 # Keep local bootstrap checks out of the dotfiles repository.
 /tests/
+
+# Personal Emacs source files must be encrypted before Git can add them.
+/dot_config/emacs/**
+!/dot_config/emacs/**/
+!/dot_config/emacs/**/encrypted_*.age
+
+# Keep the secret-directory rules effective after the Emacs exceptions.
+/dot_config/emacs/**/secrets*/
+/dot_config/emacs/**/.secrets*/
+/dot_config/emacs/**/*_secrets*/

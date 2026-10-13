@@ -9,13 +9,54 @@
 **/README*
 **/LICENSE*
 
-# Source-only init helpers and checks
+# Source-only init helpers and local bootstrap checks (not Emacs tests)
 scripts
 scripts/**
 tests
 tests/**
 
-# Personal Emacs configuration is opt-in
+# Emacs: runtime data stays local, even on personal machines.
+.config/emacs/.git
+.config/emacs/.git/**
+.config/emacs/.cache
+.config/emacs/.cache/**
+.config/emacs/var
+.config/emacs/var/**
+.config/emacs/persist
+.config/emacs/persist/**
+.config/emacs/request
+.config/emacs/request/**
+.config/emacs/url
+.config/emacs/url/**
+.config/emacs/transient
+.config/emacs/transient/**
+.config/emacs/elpa
+.config/emacs/elpa/**
+.config/emacs/eln-cache
+.config/emacs/eln-cache/**
+.config/emacs/auto-save-list
+.config/emacs/auto-save-list/**
+.config/emacs/backups
+.config/emacs/backups/**
+.config/emacs/server
+.config/emacs/server/**
+.config/emacs/history
+.config/emacs/recentf.eld
+.config/emacs/places.eld
+.config/emacs/tramp
+# Bookmarks need a separate decision before syncing.
+.config/emacs/bookmarks.eld
+.config/emacs/**/*.elc
+.config/emacs/**/*.eln
+.config/emacs/**/*~
+.config/emacs/**/#*#
+.config/emacs/**/.#*
+# OAuth storage can also appear outside var/ on older setups.
+.config/emacs/**/oauth2*.plstore
+.config/emacs/**/oauth2*.plist
+.config/emacs/**/openai-oauth-token
+
+# Personal Emacs configuration is opt-in; ciphertext may be cloned anywhere.
 {{ if ne (get . "profile" | default "common") "personal" }}
 .config/emacs
 .config/emacs/**
@@ -30,9 +71,6 @@ tests/**
 .config/systemd
 .config/tunnels
 {{ end }}
-
-# Chezmoi secret
-# .config/chezmoi/secrets
 
 # Neovim
 .config/nvim/lazy-lock.json
